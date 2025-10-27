@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Discord – Voice Only (1 phòng)</title>
+  <style>
+    :root{--bg:#0b1020;--card:#0f1730;--line:#26304a;--text:#e9eefc;--muted:#99a7d8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    header{padding:16px 20px;border-bottom:1px solid #223}
+    main{padding:20px;max-width:980px;margin:auto}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input,button{font-size:16px;border-radius:10px;border:1px solid #324163;padding:10px 14px;background:#121a34;color:#eef}
+    button{cursor:pointer}
+    button.primary{background:#1a4fff;border-color:#1a4fff}
+    button.danger{background:#b53b3b;border-color:#b53b3b}
+    .pill{display:inline-block;padding:6px 10px;border:1px solid #324163;border-radius:999px;margin:4px;background:#111a33}
+    audio{display:block;margin-top:10px;width:100%}
+    small{opacity:.75}
+    .hint{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row" style="justify-content:space-between">
+      <div><strong>Mini Discord – Voice Only</strong> <small class="hint">(Phòng: lobby)</small></div>
+      <div id="meName" class="hint"></div>
+    </div>
+  </header>
+  <main>
+    <div class="card">
+      <div class="row">
+        <input id="displayName" placeholder="Tên hiển thị (VD: LeTan-01)" />
+        <button id="joinBtn" class="primary">Vào phòng</button>
+        <button id="leaveBtn" class="danger" disabled>Rời phòng</button>
+        <button id="muteBtn" disabled>Tắt mic</button>
+      </div>
+      <div style="margin-top:10px">
+        <small class="hint">Admin chỉ cần mở trang và vào phòng là nghe được tất cả. Nhấn Space để Push-to-Talk (giữ để nói, thả để mute) – tuỳ chọn.</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div><strong>Trạng thái</strong></div>
+      <div id="status">Chưa vào phòng</div>
+      <audio id="localAudio" autoplay muted></audio>
+    </div>
+
+    <div class="card">
+      <div><strong>Thành viên trong phòng</strong></div>
+      <div id="peers"></div>
+    </div>
+
+    <div class="card">
+      <div><strong>Âm thanh từ người khác</strong></div>
+      <div id="remoteAudios"></div>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
